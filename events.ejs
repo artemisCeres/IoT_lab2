@@ -1,0 +1,48 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Events</title>
+    <style>
+			html {
+				font-family: sans-serif;
+			}
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+</head>
+<body>
+    <form action="/events" method="POST">
+        <input type="text" id="name" name="name" placeholder="Event" /> 
+        <input type="datetime-local" id="time" name="time" value="<%= today %>" min="<%= minDate %>" min="<%= maxDate %>" /> 
+        <button type="submit">Add countdown</button>
+    </form>
+    <form action="/reset">
+        <button type="submit">Reset</button>
+    </form>
+
+    <% 
+        countdowns.forEach(countdown => {
+            let timeRemaining = moment.duration(moment(countdown.time, 'YYYY-MM-DDTHH:mm').diff(moment(), 'seconds'), 'seconds')
+            if(timeRemaining.asSeconds() <= 0) {
+                timeRemaining = moment.duration(0, 'seconds')
+            }
+    %>
+        <p>
+            <b><%= countdown.name %></b>:<br/>
+            <span class="countdown" data-time="<%= countdown.time %>">
+                <%= timeRemaining.days() %> days, <%= timeRemaining.hours() %> hours, <%= timeRemaining.minutes() %> minutes, <%= timeRemaining.seconds() %> seconds remaining
+            </span>
+        </p>
+    <% }) %>
+    <script>
+        setInterval(() => {
+            document.querySelectorAll('.countdown').forEach(countdown => {
+                let timeRemaining = moment.duration(moment(countdown.dataset.time, 'YYYY-MM-DDTHH:mm').diff(moment(), 'seconds'), 'seconds')
+                if(timeRemaining.asSeconds() <= 0) {
+                    timeRemaining = moment.duration(0, 'seconds')
+                }
+                countdown.innerHTML = `${timeRemaining.days()} days, ${timeRemaining.hours()} hours, ${timeRemaining.minutes()} minutes, ${timeRemaining.seconds()} seconds remaining`
+            });
+        }, 1000);
+    </script>
+</body>
+</html>
