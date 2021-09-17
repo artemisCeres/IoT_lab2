@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Memory usage</title>
+	<script type="text/javascript" src="ajax.js">
+	</script>
+
+	<style>
+	
+		html {
+			font-family: sans-serif;
+			color: black;
+		}
+		/* initiate color classes that change the color of the items they are assigned to */
+		.green {
+			color: green;
+		}
+		.orange{
+			color: orange;
+		}
+		.red{
+			color: red;
+		}
+	</style>
+</head>
+<body>
+	<!-- here is where our output goes -->
+	<p id="mem-container"></p>
+	<!-- buttons all belonging to the same name with different ID-s and labels for them -->
+		<input type="radio" name = unit value="bytes" id="bytes" checked = "checked">
+		<label for="bytes">Bytes</label><br/>
+		<input type="radio" name = unit value="KB" id="kbytes">
+		<label for="kbytes">Kilobytes</label><br/>
+		<input type="radio" name = unit value="MB" id="mbytes">
+		<label for="mbytes">Megabytes</label><br/>
+		<input type="radio" name = unit value="GB" id="gbytes">
+		<label for="gbytes">Gigabytes</label><br/>
+
+		 
+	
+</body>
+</html>
